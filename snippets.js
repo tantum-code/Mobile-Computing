@@ -1,5 +1,17 @@
+/*import '../ol/ol.css';
+import Feature from '../ol/Feature';
+import Geolocation from '../ol/Geolocation';
+import Map from '../ol/Map';
+import Point from '../ol/geom/Point';
+import View from '../ol/View';
+import {Circle as CircleStyle, Fill, Stroke, Style} from '../ol/style';
+import {OSM, Vector as VectorSource} from '../ol/source';
+import {Tile as TileLayer, Vector as VectorLayer} from '../ol/layer';*/
+
+
 /****************** GPS **************************/
 var x = document.getElementById("p_geoloc");
+
 
 function getAccel(){
     DeviceMotionEvent.requestPermission().then(response => {
@@ -42,6 +54,7 @@ function getAccel(){
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
+        geolocation.setTracking(this.checked);
     } else { 
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
@@ -91,6 +104,34 @@ const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">Op
 
 const tiles = L.tileLayer(titleUrl,{attribution});
 tiles.addTo(map);
+
+/*map.locate({setView: true, watch: true})
+        .on('locationfound', function(e){
+            var marker = L.marker([e.latitude, e.longitude]).bindPopup('A sua localização');
+            var circle = L.circle([e.latitude, e.longitude], e.accuracy/2, {
+                weight: 1,
+                color: 'blue',
+                fillColor: '#cacaca',
+                fillOpacity: 0.2
+            });
+            map.addLayer(marker);
+            map.addLayer(circle);
+        })
+       .on('locationerror', function(e){
+            console.log(e);
+            alert("Location access denied.");
+        })
+        .on('loc')*/
+
+function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+    L.marker(e.latlng).addTo(map)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+    L.circle(e.latlng, radius).addTo(map);
+    }
+          
+map.on('locationfound', onLocationFound);
+map.locate({setView: true, watch: true, maxZoom: 8});
 
 
 
