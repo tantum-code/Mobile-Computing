@@ -84,7 +84,7 @@ window.addEventListener("deviceorientation", function(event) {
 /******************************************************/
 /****************** Kamera **************************/
 
-var video = L.map('map').setView([0,0],1);
+var video = L.map('video').setView([0,0],1);
 
 L.titleLayer('https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx',{attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'}).addTo(video);
 
