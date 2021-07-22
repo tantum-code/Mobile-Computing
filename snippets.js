@@ -97,7 +97,7 @@ window.addEventListener("deviceorientation", function(event) {
 /******************************************************/
 /****************** Kamera **************************/
 
-getLocation()
+//getLocation()
 
 const map = L.map('map').setView([49.01634, 8.40576], 15);
 //const titleUrl = 'https://{s}.title.openstreetmap.org/{z}/{x}/{y}.png';
