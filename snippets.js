@@ -11,6 +11,8 @@ import {Tile as TileLayer, Vector as VectorLayer} from '../ol/layer';*/
 
 /****************** GPS **************************/
 var x = document.getElementById("p_geoloc");
+var marker = null
+
 
 
 function getAccel(){
@@ -60,10 +62,7 @@ function getLocation() {
     }
 }
 
-function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude;	
-}
+
 
 function showError(error) {
     switch(error.code) {
@@ -97,15 +96,59 @@ window.addEventListener("deviceorientation", function(event) {
 /******************************************************/
 /****************** Kamera **************************/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 //getLocation()
 
-const map = L.map('map').setView([49.01634, 8.40576], 15);
+
+var xCord = 51.441767;
+var yCord = 5.470247;
+
+/*if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition, showError);
+    geolocation.setTracking(this.checked);
+
+} else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+}
+
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;	
+    xCord = position.coords.latitude;
+    yCord = position.coords.longitude;
+}*/
+
+
+
+const map = L.map('map').setView([xCord, yCord], 15);
 //const titleUrl = 'https://{s}.title.openstreetmap.org/{z}/{x}/{y}.png';
 const titleUrl = 'https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx'
 const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Coded by coder\'s gyan';
 
 const tiles = L.tileLayer(titleUrl,{attribution});
 tiles.addTo(map);
+
+
+var myId = 'abc';
+
+var markers = {
+    'def': L.marker([51.441767, 5.470247]).addTo(map),
+    'ghi': L.marker([51.441767, 5.480247]).addTo(map),
+    'jkl': L.marker([51.441767, 5.490247]).addTo(map)
+}
+
 
 /*map.locate({setView: true, watch: true})
         .on('locationfound', function(e){
@@ -127,13 +170,24 @@ tiles.addTo(map);
 
 function onLocationFound(e) {
     var radius = e.accuracy / 2;
-    L.marker(e.latlng).addTo(map)
-        .bindPopup("You are within " + radius + " meters from this point").openPopup();
-    L.circle(e.latlng, radius).addTo(map);
+    
+    //L.viewreset();
+
+    if (markers.hasOwnProperty(myId)) {
+        map.removeLayer(markers[myId]);
     }
+
+    
+    markers[myId] = L.marker(e.latlng).addTo(map);
+    //L.circle(e.latlng, radius).addTo(map);
+
+
+
+}
     
 
 if (navigator.geolocation) {
+
     map.on('locationfound', onLocationFound);
     //map.locate({setView: true, watch: true, maxZoom: 8});
     map.locate({setView: true, watch: true});
@@ -144,7 +198,7 @@ if (navigator.geolocation) {
 
 map.on('locationfound', onLocationFound);
 //map.locate({setView: true, watch: true, maxZoom: 8});
-map.locate({setView: true, watch: true});
+//map.locate({setView: true, watch: true});
 
 
 
