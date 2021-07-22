@@ -97,6 +97,8 @@ window.addEventListener("deviceorientation", function(event) {
 /******************************************************/
 /****************** Kamera **************************/
 
+getLocation()
+
 const map = L.map('map').setView([49.01634, 8.40576], 15);
 //const titleUrl = 'https://{s}.title.openstreetmap.org/{z}/{x}/{y}.png';
 const titleUrl = 'https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx'
@@ -131,7 +133,8 @@ function onLocationFound(e) {
     }
           
 map.on('locationfound', onLocationFound);
-map.locate({setView: true, watch: true, maxZoom: 8});
+//map.locate({setView: true, watch: true, maxZoom: 8});
+map.locate({setView: true, watch: true});
 
 
 
