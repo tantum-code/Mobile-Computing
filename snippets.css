@@ -54,6 +54,7 @@ button{
 	#snippets{
 		display:grid;
 		grid-template-columns: auto auto;
+		min-height: 20rem;
 	}
 	
 }
