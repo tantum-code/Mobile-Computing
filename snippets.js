@@ -83,6 +83,16 @@ window.addEventListener("deviceorientation", function(event) {
 }, true);
 /******************************************************/
 /****************** Kamera **************************/
+
+var map = L.map('map').setView([0,0],1);
+
+L.titleLayer('https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx',{attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'}).addTo(map);
+
+
+//https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx
+
+
+
 // Reference to video element.
 var video = document.querySelector("#video");
 
