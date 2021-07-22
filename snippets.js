@@ -84,9 +84,9 @@ window.addEventListener("deviceorientation", function(event) {
 /******************************************************/
 /****************** Kamera **************************/
 
-var map = L.map('map').setView([0,0],1);
+var video = L.map('map').setView([0,0],1);
 
-L.titleLayer('https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx',{attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'}).addTo(map);
+L.titleLayer('https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx',{attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'}).addTo(video);
 
 
 //https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx
@@ -94,12 +94,12 @@ L.titleLayer('https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJke
 
 
 // Reference to video element.
-var video = document.querySelector("#video");
+//var video = document.querySelector("#video");
 
 // Ensure cross-browser functionality.
-navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+/**navigator.mediaDevices.getUserMedia({ video: true, audio: true })
   .then(stream => video.srcObject = stream)
-  .catch(e => document.querySelector('#camera').innerHTML = "<p>Kamera nicht benutzbar!</p>");
+  .catch(e => document.querySelector('#camera').innerHTML = "<p>Kamera nicht benutzbar!</p>");**/
 
 /******************************************************/
 /***************** Toggle Visibility, Display None, Display Block ***********/
