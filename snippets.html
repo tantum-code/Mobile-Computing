@@ -12,6 +12,13 @@
 		<link id="css" rel="stylesheet" type="text/css" href="snippets.css">
 		<!-- async Seite weiterladen während Skript eingelesen wird!! -->
 		<script src="snippets.js" async></script>
+
+
+		<!-- Hosted variante für map -->
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+
 	</head>
 	<body>
 		<header class="containers">
@@ -62,8 +69,8 @@
 						<p id="acc">No accelerometer found.</p>
 						<p id="mag">No magnetometer found.</p>
 					</div>
-					<div id="camera" class="section_item">
-						<video id="video" width="160" height="120" autoplay muted>
+					<div id="map" class="section_item">
+						<!-- <video id="video" width="160" height="120" autoplay muted> -->
 					</div>
 				</section>	
 				<button id="btn_visibility">Hide</button>				

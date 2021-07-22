@@ -84,12 +84,21 @@ window.addEventListener("deviceorientation", function(event) {
 /******************************************************/
 /****************** Kamera **************************/
 
-var video = L.map('video').setView([0,0],1);
+const map = L.map('map').setView([49.01634, 8.40576], 15);
+//const titleUrl = 'https://{s}.title.openstreetmap.org/{z}/{x}/{y}.png';
+const titleUrl = 'https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx'
+const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Coded by coder\'s gyan';
 
-L.titleLayer('https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx',{attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'}).addTo(video);
+const tiles = L.tileLayer(titleUrl,{attribution});
+tiles.addTo(map);
 
 
-//https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx
+
+/*var gl = L.mapboxGL({
+    attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e",
+    style: 'https://api.maptiler.com/maps/bright/style.json?key=XsJynJkerBUUQwNO3Uqx'
+    }).addTo(map);
+//https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx*/
 
 
 

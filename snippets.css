@@ -16,6 +16,10 @@
 	padding: 1em;
 }
 
+#map{
+	height: 100%;
+}
+
 main>div{
 	width:100%;
 }
