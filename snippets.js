@@ -130,10 +130,18 @@ function onLocationFound(e) {
     L.marker(e.latlng).addTo(map)
         .bindPopup("You are within " + radius + " meters from this point").openPopup();
     L.circle(e.latlng, radius).addTo(map);
-    };
-
-
+    }
     
+
+if (navigator.geolocation) {
+    map.on('locationfound', onLocationFound);
+    //map.locate({setView: true, watch: true, maxZoom: 8});
+    map.locate({setView: true, watch: true});
+} else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+}
+
+
 map.on('locationfound', onLocationFound);
 //map.locate({setView: true, watch: true, maxZoom: 8});
 map.locate({setView: true, watch: true});
