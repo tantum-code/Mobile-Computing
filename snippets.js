@@ -143,7 +143,7 @@ var yCord = 8.012315;
 
 
 //Radius für das spielfeld
-var searchradius = (150/111111);
+var searchradius = (100/111111);
 
 // Spielfeld Hinzufügen
 var voccircle = L.circle([xCord, yCord], searchradius, {
