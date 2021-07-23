@@ -13,6 +13,10 @@ import {Tile as TileLayer, Vector as VectorLayer} from '../ol/layer';*/
 var x = document.getElementById("p_geoloc");
 var marker = null
 
+var te = 0
+
+//import * as turf from '@turf/turf'
+
 
 
 function getAccel(){
@@ -87,7 +91,7 @@ window.ondevicemotion = function(event) {
 	var ay = event.accelerationIncludingGravity.y
 	var az = event.accelerationIncludingGravity.z
 
-	document.querySelector("#acc").innerHTML = "X = " + ax + "<br>" + "Y = " + ay + "<br>" + "Z = " + az;
+	document.querySelector("#acc").innerHTML = "X = " + te + "<br>" + "Y = " + ay + "<br>" + "Z = " + az;
 }
 
 window.addEventListener("deviceorientation", function(event) {
@@ -109,26 +113,88 @@ window.addEventListener("deviceorientation", function(event) {
 
 
 
+
+
+
+
+
+
+
+
+
+
 //getLocation()
 
+// Init position auf der Map
 
-var xCord = 51.441767;
-var yCord = 5.470247;
+//48.585296339032574, 8.012315643345946
+var xCord = 48.585296;
+var yCord = 8.012315;
 
-/*if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition, showError);
-    geolocation.setTracking(this.checked);
 
-} else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
+
+
+
+
+
+
+
+
+
+
+//Radius für das spielfeld
+var searchradius = (800/111111);
+
+// Spielfeld Hinzufügen
+var voccircle = L.circle([xCord, yCord], searchradius, {
+    weight: 1,
+    color: 'blue',
+    fillColor: '#cacaca',
+    fillOpacity: 0.2
+});
+
+
+
+
+
+
+
+
+
+
+
+/*
+// test snippet für die distanz zweier punkte
+
+function getDistance(origin, destination) {
+    // return distance in meters
+    var lon1 = toRadian(origin[1]),
+        lat1 = toRadian(origin[0]),
+        lon2 = toRadian(destination[1]),
+        lat2 = toRadian(destination[0]);
+
+    var deltaLat = lat2 - lat1;
+    var deltaLon = lon2 - lon1;
+
+    var a = Math.pow(Math.sin(deltaLat/2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(deltaLon/2), 2);
+    var c = 2 * Math.asin(Math.sqrt(a));
+    var EARTH_RADIUS = 6371;
+    return c * EARTH_RADIUS * 1000;
 }
+function toRadian(degree) {
+    return degree*Math.PI/180;
+}
+var distance = getDistance([lat1, lng1], [lat2, lng2])
 
-function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude;	
-    xCord = position.coords.latitude;
-    yCord = position.coords.longitude;
-}*/
+
+
+*/
+
+
+
+
+
+
 
 
 
@@ -141,6 +207,11 @@ const tiles = L.tileLayer(titleUrl,{attribution});
 tiles.addTo(map);
 
 
+
+voccircle.addTo(map);
+
+
+
 var myId = 'abc';
 
 var markers = {
@@ -150,23 +221,79 @@ var markers = {
 }
 
 
-/*map.locate({setView: true, watch: true})
-        .on('locationfound', function(e){
-            var marker = L.marker([e.latitude, e.longitude]).bindPopup('A sua localização');
-            var circle = L.circle([e.latitude, e.longitude], e.accuracy/2, {
-                weight: 1,
-                color: 'blue',
-                fillColor: '#cacaca',
-                fillOpacity: 0.2
-            });
-            map.addLayer(marker);
-            map.addLayer(circle);
-        })
-       .on('locationerror', function(e){
-            console.log(e);
-            alert("Location access denied.");
-        })
-        .on('loc')*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function randomPoint() {
+
+
+
+    var r = searchradius * Math.sqrt(Math.random());
+    var theta = Math.random() * 2 * Math.PI;
+
+    var x = xCord + r * Math.cos(theta);
+    var y = yCord + r * Math.sin(theta);
+
+    // Spielfeld Rand bestimmen
+    /*var bounds = voccircle.getBounds();
+
+    var x_min  = bounds.getEast(); // bounds in tuef?
+    var x_max  = bounds.getWest();
+    var y_min  = bounds.getSouth();
+    var y_max  = bounds.getNorth();
+
+    var lat = y_min + (Math.random() * (y_max - y_min));
+    var lng = x_min + (Math.random() * (x_max - x_min));*/
+
+    var latlng = L.latLng(x, y);
+
+
+    markers['xxc'] = L.marker(latlng).addTo(map);
+
+    
+
+    /*var distance = getDistance([lat1, lng1], [lat2, lng2]) // lat 1 2 / tauscher?????
+    // Wiederholen, falls fehlgeschlagen
+    if (distance <= searchradius) {
+        L.marker(lat,lng).addTo(map)
+    } else {
+        randomPoint(circle)
+    }*/
+}
+
+
+
+
+for (var i = 1; i <= 10; i++) {
+    randomPoint()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function onLocationFound(e) {
     var radius = e.accuracy / 2;
@@ -183,8 +310,21 @@ function onLocationFound(e) {
 
 
 
+    // layersWithin(map, layers, latlng, radiusopt, nullable) → {Array.<object>}
+
+    if (layersWithin(map,markers, e.latlng, 10) != null){
+        te = 1;
+    }
+
+
+
+
+
+
 }
     
+
+
 
 if (navigator.geolocation) {
 
@@ -217,6 +357,27 @@ map.on('locationfound', onLocationFound);
 /**navigator.mediaDevices.getUserMedia({ video: true, audio: true })
   .then(stream => video.srcObject = stream)
   .catch(e => document.querySelector('#camera').innerHTML = "<p>Kamera nicht benutzbar!</p>");**/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /******************************************************/
 /***************** Toggle Visibility, Display None, Display Block ***********/
