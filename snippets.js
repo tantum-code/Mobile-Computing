@@ -57,14 +57,6 @@ function getAccel(){
 });
 }
 
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-        geolocation.setTracking(this.checked);
-    } else { 
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
 
 
 
@@ -139,11 +131,14 @@ var yCord = 8.012315;
 
 
 
+    
 
 
+
+var rad = prompt("Radius Meter");
 
 //Radius für das spielfeld
-var searchradius = (100/111111);
+var searchradius = (rad/111111);
 
 // Spielfeld Hinzufügen
 var voccircle = L.circle([xCord, yCord], searchradius, {
@@ -155,7 +150,38 @@ var voccircle = L.circle([xCord, yCord], searchradius, {
 
 
 
+function initPosition(e) {
+    var radius = e.accuracy / 2;
+    
+    //L.viewreset();
 
+    /*if (markers.hasOwnProperty(myId)) {
+        map.removeLayer(markers[myId]);
+    }*/
+
+    
+    //markers[myId] = L.marker(e.latlng).addTo(map);
+    //L.circle(e.latlng, radius).addTo(map);
+
+    var startcircle = L.circle([position.coords.latitude, position.coords.longitude], {
+        color: "red",
+        fillColor: "#f03",
+        fillOpacity: 0.5,
+        radius: searchradius
+    }).addTo(map);        
+
+    // layersWithin(map, layers, latlng, radiusopt, nullable) → {Array.<object>}
+
+    if (layersWithin(map,markers, e.latlng, 10) != null){
+        te = 1;
+    }
+
+
+
+
+
+
+}
 
 
 
@@ -235,7 +261,7 @@ var markers = {
 
 
 
-function randomPoint() {
+function randomPoint(num) {
 
 
 
@@ -259,7 +285,7 @@ function randomPoint() {
     var latlng = L.latLng(x, y);
 
 
-    markers['xxc'] = L.marker(latlng).addTo(map);
+    markers['vo'+num] = L.marker(latlng).addTo(map);
 
     
 
@@ -275,9 +301,7 @@ function randomPoint() {
 
 
 
-for (var i = 1; i <= 10; i++) {
-    randomPoint()
-}
+
 
 
 
@@ -324,6 +348,25 @@ function onLocationFound(e) {
 }
     
 
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        geolocation.setTracking(this.checked);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    xCord = position.coords.latitude;
+    yCord = position.coords.longitude;
+
+    map.locate({setView: true, watch: true});
+    
+    for (var i = 1; i <= 10; i++) {
+        randomPoint(i)
+    }
+}
 
 
 if (navigator.geolocation) {
@@ -331,6 +374,19 @@ if (navigator.geolocation) {
     map.on('locationfound', onLocationFound);
     //map.locate({setView: true, watch: true, maxZoom: 8});
     map.locate({setView: true, watch: true});
+
+    //map.on('locationfound', initPosition);
+
+
+    //xCord = position.coords.latitude;
+    //yCord = position.coords.longitude;
+
+    /*for (var i = 1; i <= 10; i++) {
+        randomPoint()
+    }*/
+
+
+
 } else { 
     x.innerHTML = "Geolocation is not supported by this browser.";
 }
