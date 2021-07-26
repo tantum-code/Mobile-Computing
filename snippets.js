@@ -320,7 +320,7 @@ function randomPoint(num) {
 
 function success(position) {
         
-    $body.addClass('loaded');
+    //$body.addClass('loaded');
     
     var currentPos = [position.coords.latitude,position.coords.longitude];
     
@@ -452,6 +452,9 @@ function onLocationFound(e) {
 
     // layersWithin(map, layers, latlng, radiusopt, nullable) → {Array.<object>}
 
+    prompt("Ifff");
+    success(e)
+
     if (layersWithin(map,markers, e.latlng, 20) != null){
         te = 1;
     }
@@ -491,6 +494,7 @@ if (navigator.geolocation) {
     //map.locate({setView: true, watch: true, maxZoom: 8});
     map.locate({setView: true, watch: true, maxZoom: 8});
 
+    //prompt("Ifff");
 
     //Aufruf nearness check
     navigator.geolocation.getCurrentPosition(success, error);
