@@ -336,7 +336,7 @@ function onLocationFound(e) {
 
     // layersWithin(map, layers, latlng, radiusopt, nullable) → {Array.<object>}
 
-    if (layersWithin(map,markers, e.latlng, 10) != null){
+    if (layersWithin(map,markers, e.latlng, 20) != null){
         te = 1;
     }
 
@@ -373,7 +373,7 @@ if (navigator.geolocation) {
 
     map.on('locationfound', onLocationFound);
     //map.locate({setView: true, watch: true, maxZoom: 8});
-    map.locate({setView: true, watch: true});
+    map.locate({setView: true, watch: true, maxZoom: 8});
 
     //map.on('locationfound', initPosition);
 
