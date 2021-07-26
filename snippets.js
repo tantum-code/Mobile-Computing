@@ -318,6 +318,122 @@ function randomPoint(num) {
 
 
 
+function success(position) {
+        
+    $body.addClass('loaded');
+    
+    var currentPos = [position.coords.latitude,position.coords.longitude];
+    
+    /*map.setView(currentPos, zoomLevel);
+
+    var myLocation = L.marker(currentPos)
+                        .addTo(map)
+                        .bindTooltip("you are here")
+                        .openTooltip();*/
+
+    queryFeatures(currentPos, 5);
+    
+        
+    /*$findNearest.fadeIn()
+        .on('click', function(e) {
+            
+            $findNearest.fadeOut();
+            
+            $status.html('finding your nearest locations')
+        
+            queryFeatures(currentPos, 5);
+        
+            myLocation.unbindTooltip();
+        
+            
+    });*/
+
+};
+
+function error() {
+    alert("Unable to retrieve your location");
+};
+ 
+function queryFeatures(currentPos, numResults) {
+
+
+    
+
+    map.eachLayer(function(layer) {
+        if (layer instanceof L.Marker) {
+
+
+            //111111
+
+            var diffX = Math.abs(currentPos[0] - layer.getLatLng()[0]);
+            var diffY = Math.abs(currentPos[1] - layer.getLatLng()[1]);
+
+            var diff = Math.sqrt((Math.pow(diffX,2)+Math.pow(diffY,2)))
+
+            if ((diff * 111111) <= 10) {
+
+                prompt("Reeeee");
+            // We found a marker at the target lat, lng
+            }
+
+         }
+    });
+
+
+
+
+    
+    var distances = [];
+    
+    markers.eachLayer(function(l) {
+        
+        var distance = L.latLng(currentPos).distanceTo(l.getLatLng())/1000;
+        
+        distances.push(distance);
+
+    });
+    
+    distances.sort(function(a, b) {
+        return a - b;
+    });
+    
+    var stationsLayer = L.featureGroup();
+        
+
+    markers.eachLayer(function(l) {
+        
+        var distance = L.latLng(currentPos).distanceTo(l.getLatLng())/1000;
+        
+        if(distance < distances[numResults]) {
+            
+            l.bindTooltip(distance.toLocaleString() + ' km from current location.');
+            
+            L.polyline([currentPos, l.getLatLng()], {
+                color : 'orange',
+                weight : 2,
+                opacity: 1,
+                dashArray : "5, 10"
+            }).addTo(stationsLayer);
+            
+        }
+    });
+    
+    map.flyToBounds(stationsLayer.getBounds(), {duration : 3, easeLinearity: .1 });
+    
+    map.on('zoomend', function() {
+      
+        map.addLayer(stationsLayer);
+    })
+  
+}
+
+
+
+
+
+
+
+
 
 function onLocationFound(e) {
     var radius = e.accuracy / 2;
@@ -374,6 +490,10 @@ if (navigator.geolocation) {
     map.on('locationfound', onLocationFound);
     //map.locate({setView: true, watch: true, maxZoom: 8});
     map.locate({setView: true, watch: true, maxZoom: 8});
+
+
+    //Aufruf nearness check
+    navigator.geolocation.getCurrentPosition(success, error);
 
     //map.on('locationfound', initPosition);
 
