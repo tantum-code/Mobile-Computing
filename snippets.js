@@ -356,7 +356,7 @@ function error() {
  
 function queryFeatures(currentPos, numResults) {
 
-
+    prompt("Niff");
     
 
     map.eachLayer(function(layer) {
@@ -364,6 +364,7 @@ function queryFeatures(currentPos, numResults) {
 
 
             //111111
+            prompt("Ra");
 
             var diffX = Math.abs(currentPos[0] - layer.getLatLng()[0]);
             var diffY = Math.abs(currentPos[1] - layer.getLatLng()[1]);
@@ -383,7 +384,7 @@ function queryFeatures(currentPos, numResults) {
 
 
     
-    var distances = [];
+    /*var distances = [];
     
     markers.eachLayer(function(l) {
         
@@ -423,7 +424,7 @@ function queryFeatures(currentPos, numResults) {
     map.on('zoomend', function() {
       
         map.addLayer(stationsLayer);
-    })
+    })*/
   
 }
 
@@ -453,11 +454,11 @@ function onLocationFound(e) {
     // layersWithin(map, layers, latlng, radiusopt, nullable) → {Array.<object>}
 
     prompt("Ifff");
-    success(e)
+    success(e);
 
-    if (layersWithin(map,markers, e.latlng, 20) != null){
+    /*if (layersWithin(map,markers, e.latlng, 20) != null){
         te = 1;
-    }
+    }*/
 
 
 
