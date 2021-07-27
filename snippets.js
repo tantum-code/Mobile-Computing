@@ -363,8 +363,16 @@ function queryFeatures(currentPos, numResults) {
 
             var distance = diff * 111111
 
+            if (distance <= 10) {
+
+                
+
+                var c = prompt("Reeeee" + distance);
+            // We found a marker at the target lat, lng
+            }
+
             //prompt("Dist" + distance);
-            if (layer.hasOwnProperty(myId)){
+            /*if (layer.hasOwnProperty(myId)){
 
             } else {
                 if (distance <= 10) {
@@ -374,7 +382,7 @@ function queryFeatures(currentPos, numResults) {
                     var c = prompt("Reeeee" + distance);
                 // We found a marker at the target lat, lng
                 }
-            }
+            }*/
 
 
 
