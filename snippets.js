@@ -353,10 +353,17 @@ function queryFeatures(currentPos, numResults) {
             //111111
             //var b = prompt("Ra");
 
-            var diffX = Math.abs(currentPos[0] - layer.getLatLng()[0]);
-            var diffY = Math.abs(currentPos[1] - layer.getLatLng()[1]);
+            var diffX = Math.abs(currentPos[0] - layer.getLatLng().lat);
+            var diffY = Math.abs(currentPos[1] - layer.getLatLng().lng);
 
             var diff = Math.sqrt((Math.pow(diffX,2)+Math.pow(diffY,2)))
+
+
+            
+
+            var distance = diff * 111111
+
+            prompt("Dist" + distance);
 
             if ((diff * 111111) <= 10) {
 
