@@ -177,45 +177,7 @@ function initPosition(e) {
     }
 
 
-
-
-
-
 }
-
-
-
-
-
-
-
-/*
-// test snippet für die distanz zweier punkte
-
-function getDistance(origin, destination) {
-    // return distance in meters
-    var lon1 = toRadian(origin[1]),
-        lat1 = toRadian(origin[0]),
-        lon2 = toRadian(destination[1]),
-        lat2 = toRadian(destination[0]);
-
-    var deltaLat = lat2 - lat1;
-    var deltaLon = lon2 - lon1;
-
-    var a = Math.pow(Math.sin(deltaLat/2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(deltaLon/2), 2);
-    var c = 2 * Math.asin(Math.sqrt(a));
-    var EARTH_RADIUS = 6371;
-    return c * EARTH_RADIUS * 1000;
-}
-function toRadian(degree) {
-    return degree*Math.PI/180;
-}
-var distance = getDistance([lat1, lng1], [lat2, lng2])
-
-
-
-*/
-
 
 
 
@@ -271,31 +233,10 @@ function randomPoint(num) {
     var x = xCord + r * Math.cos(theta);
     var y = yCord + r * Math.sin(theta);
 
-    // Spielfeld Rand bestimmen
-    /*var bounds = voccircle.getBounds();
-
-    var x_min  = bounds.getEast(); // bounds in tuef?
-    var x_max  = bounds.getWest();
-    var y_min  = bounds.getSouth();
-    var y_max  = bounds.getNorth();
-
-    var lat = y_min + (Math.random() * (y_max - y_min));
-    var lng = x_min + (Math.random() * (x_max - x_min));*/
-
     var latlng = L.latLng(x, y);
 
 
     markers['vo'+num] = L.marker(latlng).addTo(map);
-
-    
-
-    /*var distance = getDistance([lat1, lng1], [lat2, lng2]) // lat 1 2 / tauscher?????
-    // Wiederholen, falls fehlgeschlagen
-    if (distance <= searchradius) {
-        L.marker(lat,lng).addTo(map)
-    } else {
-        randomPoint(circle)
-    }*/
 }
 
 
@@ -348,85 +289,13 @@ function success(position) {
             
     });*/
 
-};
+}
 
 function error() {
     alert("Unable to retrieve your location");
-};
- 
-function queryFeatures(currentPos, numResults) {
-
-    prompt("Niff");
-    
-
-    map.eachLayer(function(layer) {
-        if (layer instanceof L.Marker) {
-
-
-            //111111
-            prompt("Ra");
-
-            var diffX = Math.abs(currentPos[0] - layer.getLatLng()[0]);
-            var diffY = Math.abs(currentPos[1] - layer.getLatLng()[1]);
-
-            var diff = Math.sqrt((Math.pow(diffX,2)+Math.pow(diffY,2)))
-
-            if ((diff * 111111) <= 10) {
-
-                prompt("Reeeee");
-            // We found a marker at the target lat, lng
-            }
-
-         }
-    });
-
-
-
-
-    
-    /*var distances = [];
-    
-    markers.eachLayer(function(l) {
-        
-        var distance = L.latLng(currentPos).distanceTo(l.getLatLng())/1000;
-        
-        distances.push(distance);
-
-    });
-    
-    distances.sort(function(a, b) {
-        return a - b;
-    });
-    
-    var stationsLayer = L.featureGroup();
-        
-
-    markers.eachLayer(function(l) {
-        
-        var distance = L.latLng(currentPos).distanceTo(l.getLatLng())/1000;
-        
-        if(distance < distances[numResults]) {
-            
-            l.bindTooltip(distance.toLocaleString() + ' km from current location.');
-            
-            L.polyline([currentPos, l.getLatLng()], {
-                color : 'orange',
-                weight : 2,
-                opacity: 1,
-                dashArray : "5, 10"
-            }).addTo(stationsLayer);
-            
-        }
-    });
-    
-    map.flyToBounds(stationsLayer.getBounds(), {duration : 3, easeLinearity: .1 });
-    
-    map.on('zoomend', function() {
-      
-        map.addLayer(stationsLayer);
-    })*/
-  
 }
+ 
+
 
 
 
@@ -452,9 +321,14 @@ function onLocationFound(e) {
 
 
     // layersWithin(map, layers, latlng, radiusopt, nullable) → {Array.<object>}
+    //success(e);
+    
+    
+    //var e = prompt("Ifff");
 
-    prompt("Ifff");
-    success(e);
+    navigator.geolocation.getCurrentPosition(success, error);
+
+
 
     /*if (layersWithin(map,markers, e.latlng, 20) != null){
         te = 1;
@@ -466,6 +340,44 @@ function onLocationFound(e) {
 
 
 }
+
+function queryFeatures(currentPos, numResults) {
+
+    //var a = prompt("Niff");
+    
+
+    map.eachLayer(function(layer) {
+        if (layer instanceof L.Marker) {
+
+
+            //111111
+            //var b = prompt("Ra");
+
+            var diffX = Math.abs(currentPos[0] - layer.getLatLng()[0]);
+            var diffY = Math.abs(currentPos[1] - layer.getLatLng()[1]);
+
+            var diff = Math.sqrt((Math.pow(diffX,2)+Math.pow(diffY,2)))
+
+            if ((diff * 111111) <= 10) {
+
+                var c = prompt("Reeeee");
+            // We found a marker at the target lat, lng
+            }
+
+         }
+    });
+
+    //var d = prompt("End of");
+
+}
+
+
+
+
+
+
+
+
     
 
 function getLocation() {
@@ -498,7 +410,7 @@ if (navigator.geolocation) {
     //prompt("Ifff");
 
     //Aufruf nearness check
-    navigator.geolocation.getCurrentPosition(success, error);
+    //navigator.geolocation.getCurrentPosition(success, error);
 
     //map.on('locationfound', initPosition);
 
