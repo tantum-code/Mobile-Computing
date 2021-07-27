@@ -363,6 +363,8 @@ function queryFeatures(currentPos, numResults) {
 
             var distance = diff * 111111
 
+            prompt("distance " + distance)
+
             if (distance <= 10) {
 
                 
@@ -417,7 +419,7 @@ function showPosition(position) {
 
     map.locate({setView: true, watch: true});
     
-    for (var i = 1; i <= 10; i++) {
+    for (var i = 1; i <= 5; i++) {
         randomPoint(i)
     }
 }
