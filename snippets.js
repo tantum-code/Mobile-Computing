@@ -363,13 +363,20 @@ function queryFeatures(currentPos, numResults) {
 
             var distance = diff * 111111
 
-            prompt("Dist" + distance);
+            //prompt("Dist" + distance);
+            if (markers.hasOwnProperty(myId)){
 
-            if ((diff * 111111) <= 10) {
+            } else {
+                if (distance <= 10) {
 
-                var c = prompt("Reeeee");
-            // We found a marker at the target lat, lng
+                
+
+                    var c = prompt("Reeeee" + distance);
+                // We found a marker at the target lat, lng
+                }
             }
+
+
 
          }
     });
