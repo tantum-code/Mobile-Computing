@@ -349,7 +349,7 @@ function queryFeatures(currentPos, numResults) {
     map.eachLayer(function(layer) {
         if (layer instanceof L.Marker) {
 
-
+            //prompt("Layer " + layer.hasOwnProperty)
             //111111
             //var b = prompt("Ra");
 
@@ -364,7 +364,7 @@ function queryFeatures(currentPos, numResults) {
             var distance = diff * 111111
 
             //prompt("Dist" + distance);
-            if (markers.hasOwnProperty(myId)){
+            if (layer.hasOwnProperty(myId)){
 
             } else {
                 if (distance <= 10) {
