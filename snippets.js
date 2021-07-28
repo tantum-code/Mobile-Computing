@@ -365,6 +365,10 @@ function queryFeatures(currentPos, numResults) {
 
             prompt("distance " + distance)
 
+            /*7if (markers[myId] == layer.) {
+                prompt("OwnLayer detected")
+            }*/
+
             if (distance <= 10) {
 
                 
