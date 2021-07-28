@@ -314,8 +314,15 @@ function onLocationFound(e) {
         map.removeLayer(markers[myId]);
     }
 
+    var pos = L.marker(e.latlng);
+
+    pos.id = 'foo';
+
+    markers[myId] = pos;
+
+    pos.addTo(map);
     
-    markers[myId] = L.marker(e.latlng).addTo(map);
+    //markers[myId] = L.marker(e.latlng).addTo(map);
     //L.circle(e.latlng, radius).addTo(map);
 
 
@@ -363,17 +370,27 @@ function queryFeatures(currentPos, numResults) {
 
             var distance = diff * 111111
 
-            prompt("distance " + distance)
+            //prompt("distance " + distance)
 
             /*7if (markers[myId] == layer.) {
                 prompt("OwnLayer detected")
             }*/
 
+
+
             if (distance <= 10) {
+
+                // spieler - position gefunden
+                if (layer.id === 'foo'){
+                    //prompt("Position");
+                } else {
+                    var c = prompt("Reeeee" + distance);
+                }
 
                 
 
-                var c = prompt("Reeeee" + distance);
+                //var c = prompt("Reeeee" + distance);
+
             // We found a marker at the target lat, lng
             }
 
