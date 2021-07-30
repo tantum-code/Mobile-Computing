@@ -1,15 +1,19 @@
-/*import '../ol/ol.css';
-import Feature from '../ol/Feature';
-import Geolocation from '../ol/Geolocation';
-import Map from '../ol/Map';
-import Point from '../ol/geom/Point';
-import View from '../ol/View';
-import {Circle as CircleStyle, Fill, Stroke, Style} from '../ol/style';
-import {OSM, Vector as VectorSource} from '../ol/source';
-import {Tile as TileLayer, Vector as VectorLayer} from '../ol/layer';*/
+
+
+
+
+//import * as papaparse from './papaparse.min.js';
+
 
 
 /****************** GPS **************************/
+
+
+
+let input = document.querySelector('input');
+let textarea = document.querySelector('textarea');
+
+
 var x = document.getElementById("p_geoloc");
 var marker = null
 
@@ -122,6 +126,64 @@ window.addEventListener("deviceorientation", function(event) {
 //48.585296339032574, 8.012315643345946
 var xCord = 48.585296;
 var yCord = 8.012315;
+
+
+//var vocabs = fetch("https://github.com/tantum-code/Mobile-Computing/blob/main/hsk1.csv").then((r)=>{r.text().then((d)=>{let CONTENT = d})})
+
+//var data = $.csv.toArrays(vocabs);
+
+
+
+
+//const fileUrl = 'hsk1.txt' // provide file location
+
+/*const fs = require('fs')
+  
+fs.readFile('Input.txt', (err, data) => {
+    if (err) throw err;
+  
+    console.log(data.toString());
+})*/
+
+var vocs = '';
+
+input.addEventListener('change', () => {
+    let files = input.files;
+
+    if(files.length == 0) return;
+
+    const file = files[0];
+
+    let reader = new FileReader();
+
+    reader.onload = (e) => {
+        const file = e.target.result;
+        const lines = file.split(/\n|\n/);
+        vocs = file;
+        //var vocs = file;
+        //textarea.value = lines.join('\n');
+
+
+    };
+
+    reader.onerror = (e) => alert(e.target.error.name);
+
+    reader.readAsText(file);
+
+    prompt("jaja")
+
+
+
+});
+
+
+
+
+alert("uff");
+
+
+
+
 
 
 
@@ -348,6 +410,9 @@ function onLocationFound(e) {
 
 }
 
+var array;
+//var randPo;
+
 function queryFeatures(currentPos, numResults) {
 
     //var a = prompt("Niff");
@@ -384,7 +449,70 @@ function queryFeatures(currentPos, numResults) {
                 if (layer.id === 'foo'){
                     //prompt("Position");
                 } else {
-                    var c = prompt("Reeeee" + distance);
+                    
+                    var ll = vocs.length;
+                    var c = prompt("Reeeee " + distance +" ll: " +ll);
+
+                    var randP = Math.floor( Math.random() * ll) ;
+
+                    var modcount = 0;
+
+                    var inti = 0;
+                    /*
+                    for (inti; inti >= randP; inti++) {
+                        if (vocs[inti]===','){
+                            if (modcount === 1){
+                                modcount = 0;
+                            } else {
+                                modcount = modcount + 1;
+                            }
+                            
+                        }
+                
+                    }
+
+                    var finalindex = 0;
+
+                    while (modcount != 0){
+                        if (vocs[inti]===','){
+                            if (modcount === 1){
+                                //hier spielt die musik
+                                finalindex = inti;
+                            } else {
+                                modcount = modcount + 1;
+                            }
+                            
+                        }
+                        inti++;
+                    }
+                    
+                    
+                    */
+
+                    //array = vocs.split(',');
+
+
+                    array = vocs.split(/\r\n|\n/);
+
+                    prompt("juff");
+
+                    var len = array.length;
+
+                    var randPo = Math.floor( Math.random() * len) ;
+
+                    while((randPo % 3) != 0){
+                        randPo++;
+                    }
+
+                    var vocabulary = array[randPo];
+
+                    prompt(vocabulary);
+
+
+
+
+
+
                 }
 
                 
@@ -419,9 +547,26 @@ function queryFeatures(currentPos, numResults) {
 
 
 
+var entries = '';
 
+function processData(allText) {
+    var record_num = 3;  // or however many elements there are in each row
+    var allTextLines = allText.split(/\r\n|\n/);
+    //var entries = allTextLines[0].split(',');
 
+    entries = allTextLines[0].split(',');
+    var lines = [];
 
+    var headings = entries.splice(0,record_num);
+    while (entries.length>0) {
+        var tarr = [];
+        for (var j=0; j<record_num; j++) {
+            tarr.push(headings[j]+":"+entries.shift());
+        }
+        lines.push(tarr);
+    }
+    alert("yeeee");
+}
 
     
 
@@ -439,9 +584,15 @@ function showPosition(position) {
     yCord = position.coords.longitude;
 
     map.locate({setView: true, watch: true});
+
+    processData(vocs);
+
+    prompt(vocs[5]);
+
     
     for (var i = 1; i <= 5; i++) {
         randomPoint(i)
+
     }
 }
 
@@ -454,19 +605,6 @@ if (navigator.geolocation) {
 
     //prompt("Ifff");
 
-    //Aufruf nearness check
-    //navigator.geolocation.getCurrentPosition(success, error);
-
-    //map.on('locationfound', initPosition);
-
-
-    //xCord = position.coords.latitude;
-    //yCord = position.coords.longitude;
-
-    /*for (var i = 1; i <= 10; i++) {
-        randomPoint()
-    }*/
-
 
 
 } else { 
@@ -477,39 +615,6 @@ if (navigator.geolocation) {
 map.on('locationfound', onLocationFound);
 //map.locate({setView: true, watch: true, maxZoom: 8});
 //map.locate({setView: true, watch: true});
-
-
-
-/*var gl = L.mapboxGL({
-    attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e",
-    style: 'https://api.maptiler.com/maps/bright/style.json?key=XsJynJkerBUUQwNO3Uqx'
-    }).addTo(map);
-//https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx*/
-
-
-
-// Reference to video element.
-//var video = document.querySelector("#video");
-
-// Ensure cross-browser functionality.
-/**navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-  .then(stream => video.srcObject = stream)
-  .catch(e => document.querySelector('#camera').innerHTML = "<p>Kamera nicht benutzbar!</p>");**/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
