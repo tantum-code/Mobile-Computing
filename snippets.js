@@ -458,43 +458,14 @@ function queryFeatures(currentPos, numResults) {
                     var modcount = 0;
 
                     var inti = 0;
-                    /*
-                    for (inti; inti >= randP; inti++) {
-                        if (vocs[inti]===','){
-                            if (modcount === 1){
-                                modcount = 0;
-                            } else {
-                                modcount = modcount + 1;
-                            }
-                            
-                        }
-                
-                    }
 
-                    var finalindex = 0;
-
-                    while (modcount != 0){
-                        if (vocs[inti]===','){
-                            if (modcount === 1){
-                                //hier spielt die musik
-                                finalindex = inti;
-                            } else {
-                                modcount = modcount + 1;
-                            }
-                            
-                        }
-                        inti++;
-                    }
-                    
-                    
-                    */
 
                     //array = vocs.split(',');
 
 
                     array = vocs.split(/\r\n|\n/);
 
-                    prompt("juff");
+                    //prompt("juff");
 
                     var len = array.length;
 
@@ -506,10 +477,41 @@ function queryFeatures(currentPos, numResults) {
 
                     var vocabulary = array[randPo];
 
-                    prompt(vocabulary);
+
+                    var vocA = '';
+                    var vocB = '';
+
+                    var aCount = 0;
+
+                    while(vocabulary[aCount] != ','){
+                        vocA = vocA + vocabulary[aCount];
+                        aCount++;
+                    }
+
+                    aCount++;
+
+                    while(vocabulary[aCount] != ','){
+                        vocB = vocB + vocabulary[aCount];
+                        aCount++;
+                    }
+
+                    aCount++;
+
+                    var vocC = vocabulary.slice(aCount);
 
 
 
+
+                    //prompt("A: " + vocA + " B: " +vocB+" C: "+ vocC);
+
+                    var answer = prompt("A: __"  + " B: " +vocB+" C: "+ vocC);
+                    
+                    if(answer===vocA){
+                        alert("Success!");
+                        map.removeLayer(layer);
+                    } else {
+                        alert("Please try again!");
+                    }
 
 
 
@@ -565,7 +567,7 @@ function processData(allText) {
         }
         lines.push(tarr);
     }
-    alert("yeeee");
+    //alert("yeeee");
 }
 
     
@@ -587,7 +589,7 @@ function showPosition(position) {
 
     processData(vocs);
 
-    prompt(vocs[5]);
+    //prompt(vocs[5]);
 
     
     for (var i = 1; i <= 5; i++) {
