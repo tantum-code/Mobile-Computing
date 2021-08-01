@@ -127,23 +127,14 @@ window.addEventListener("deviceorientation", function(event) {
 var xCord = 48.585296;
 var yCord = 8.012315;
 
+var globalVocabCounter = 0;
+
 
 //var vocabs = fetch("https://github.com/tantum-code/Mobile-Computing/blob/main/hsk1.csv").then((r)=>{r.text().then((d)=>{let CONTENT = d})})
 
 //var data = $.csv.toArrays(vocabs);
 
 
-
-
-//const fileUrl = 'hsk1.txt' // provide file location
-
-/*const fs = require('fs')
-  
-fs.readFile('Input.txt', (err, data) => {
-    if (err) throw err;
-  
-    console.log(data.toString());
-})*/
 
 var vocs = '';
 
@@ -170,7 +161,7 @@ input.addEventListener('change', () => {
 
     reader.readAsText(file);
 
-    prompt("jaja")
+    //prompt("jaja")
 
 
 
@@ -179,7 +170,7 @@ input.addEventListener('change', () => {
 
 
 
-alert("uff");
+//alert("uff");
 
 
 
@@ -287,8 +278,6 @@ var markers = {
 
 function randomPoint(num) {
 
-
-
     var r = searchradius * Math.sqrt(Math.random());
     var theta = Math.random() * 2 * Math.PI;
 
@@ -296,7 +285,6 @@ function randomPoint(num) {
     var y = yCord + r * Math.sin(theta);
 
     var latlng = L.latLng(x, y);
-
 
     markers['vo'+num] = L.marker(latlng).addTo(map);
 }
@@ -335,21 +323,6 @@ function success(position) {
                         .openTooltip();*/
 
     queryFeatures(currentPos, 5);
-    
-        
-    /*$findNearest.fadeIn()
-        .on('click', function(e) {
-            
-            $findNearest.fadeOut();
-            
-            $status.html('finding your nearest locations')
-        
-            queryFeatures(currentPos, 5);
-        
-            myLocation.unbindTooltip();
-        
-            
-    });*/
 
 }
 
@@ -384,88 +357,62 @@ function onLocationFound(e) {
 
     pos.addTo(map);
     
-    //markers[myId] = L.marker(e.latlng).addTo(map);
-    //L.circle(e.latlng, radius).addTo(map);
-
-
-
-    // layersWithin(map, layers, latlng, radiusopt, nullable) → {Array.<object>}
-    //success(e);
-    
     
     //var e = prompt("Ifff");
 
     navigator.geolocation.getCurrentPosition(success, error);
 
 
-
-    /*if (layersWithin(map,markers, e.latlng, 20) != null){
-        te = 1;
-    }*/
-
-
-
-
-
-
 }
 
+
+
+
+
+
 var array;
-//var randPo;
+
+
+
+
+
 
 function queryFeatures(currentPos, numResults) {
 
-    //var a = prompt("Niff");
-    
+    // Each layer on the map will be checked
 
     map.eachLayer(function(layer) {
         if (layer instanceof L.Marker) {
 
-            //prompt("Layer " + layer.hasOwnProperty)
-            //111111
-            //var b = prompt("Ra");
+            //find the distance from the GPS coords to the next marker using pythagoras
 
             var diffX = Math.abs(currentPos[0] - layer.getLatLng().lat);
             var diffY = Math.abs(currentPos[1] - layer.getLatLng().lng);
 
             var diff = Math.sqrt((Math.pow(diffX,2)+Math.pow(diffY,2)))
 
-
-            
+            // The distance has to be converted from latlang to meters (roughly)
 
             var distance = diff * 111111
 
-            //prompt("distance " + distance)
-
-            /*7if (markers[myId] == layer.) {
-                prompt("OwnLayer detected")
-            }*/
-
-
-
+            // A marker within a distance of 10 meters has been found!
             if (distance <= 10) {
-
-                // spieler - position gefunden
                 if (layer.id === 'foo'){
-                    //prompt("Position");
+                    // This is the player marker. Don't do anything here
                 } else {
                     
-                    var ll = vocs.length;
-                    var c = prompt("Reeeee " + distance +" ll: " +ll);
+                    //var ll = vocs.length;
+                    //var c = prompt("Reeeee " + distance +" ll: " +ll);
+                    
+                    //var randP = Math.floor( Math.random() * ll) ;
 
-                    var randP = Math.floor( Math.random() * ll) ;
+                    //var modcount = 0;
 
-                    var modcount = 0;
+                    //var inti = 0;
 
-                    var inti = 0;
-
-
-                    //array = vocs.split(',');
-
+                    /* selecting one of the vocabs from the CSV */
 
                     array = vocs.split(/\r\n|\n/);
-
-                    //prompt("juff");
 
                     var len = array.length;
 
@@ -475,8 +422,9 @@ function queryFeatures(currentPos, numResults) {
                         randPo++;
                     }
 
-                    var vocabulary = array[randPo];
+                    /* Build the three vocab parts from the selected vocab */
 
+                    var vocabulary = array[randPo];
 
                     var vocA = '';
                     var vocB = '';
@@ -499,51 +447,30 @@ function queryFeatures(currentPos, numResults) {
 
                     var vocC = vocabulary.slice(aCount);
 
-
-
-
-                    //prompt("A: " + vocA + " B: " +vocB+" C: "+ vocC);
+                    /* Awaiting user input, evaluating and processing the user vocab */
 
                     var answer = prompt("A: __"  + " B: " +vocB+" C: "+ vocC);
                     
                     if(answer===vocA){
                         alert("Success!");
                         map.removeLayer(layer);
+
+
+                        globalVocabCounter = globalVocabCounter - 1;
+
+                        if (globalVocabCounter <= 0) {
+                            alert("You did it!")
+                        }
+
+
+
                     } else {
                         alert("Please try again!");
                     }
-
-
-
                 }
-
-                
-
-                //var c = prompt("Reeeee" + distance);
-
-            // We found a marker at the target lat, lng
             }
-
-            //prompt("Dist" + distance);
-            /*if (layer.hasOwnProperty(myId)){
-
-            } else {
-                if (distance <= 10) {
-
-                
-
-                    var c = prompt("Reeeee" + distance);
-                // We found a marker at the target lat, lng
-                }
-            }*/
-
-
-
          }
     });
-
-    //var d = prompt("End of");
-
 }
 
 
@@ -581,6 +508,14 @@ function getLocation() {
     }
 }
 
+
+
+
+
+
+
+/* Setup vocabs */
+
 function showPosition(position) {
     xCord = position.coords.latitude;
     yCord = position.coords.longitude;
@@ -591,10 +526,15 @@ function showPosition(position) {
 
     //prompt(vocs[5]);
 
+    var amountVocs = 0;
     
-    for (var i = 1; i <= 5; i++) {
-        randomPoint(i)
+    amountVocs = prompt("How many Vocabs do you want to chase?");
 
+    globalVocabCounter = globalVocabCounter + amountVocs;
+
+    
+    for (var i = 1; i <= amountVocs; i++) {
+        randomPoint(i);
     }
 }
 
