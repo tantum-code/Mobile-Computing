@@ -188,7 +188,7 @@ input.addEventListener('change', () => {
 
 
 
-var rad = prompt("Radius Meter");
+var rad = 200;
 
 //Radius für das spielfeld
 var searchradius = (rad/111111);
@@ -278,7 +278,13 @@ var markers = {
 
 function randomPoint(num) {
 
-    var r = searchradius * Math.sqrt(Math.random());
+    var radrere = document.getElementById("myInput").value;
+
+    var searchradiusrere = (radrere/111111);
+
+    
+
+    var r = searchradiusrere * Math.sqrt(Math.random());
     var theta = Math.random() * 2 * Math.PI;
 
     var x = xCord + r * Math.cos(theta);
@@ -532,10 +538,20 @@ function showPosition(position) {
 
     globalVocabCounter = globalVocabCounter + amountVocs;
 
-    
-    for (var i = 1; i <= amountVocs; i++) {
-        randomPoint(i);
+
+
+    var inputField = document.getElementById("myInput").value;
+
+    if(isNaN(inputField)){
+        alert("Radius input is not a Number!")
+    }else{
+        for (var i = 1; i <= amountVocs; i++) {
+            randomPoint(i);
+        }
     }
+
+    
+    
 }
 
 
