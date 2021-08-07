@@ -242,7 +242,7 @@ function initPosition(e) {
 const map = L.map('map').setView([xCord, yCord], 15);
 //const titleUrl = 'https://{s}.title.openstreetmap.org/{z}/{x}/{y}.png';
 const titleUrl = 'https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx'
-const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Coded by coder\'s gyan';
+const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Coded by Thomas Koch';
 
 const tiles = L.tileLayer(titleUrl,{attribution});
 tiles.addTo(map);
@@ -588,14 +588,15 @@ togglevisibility.addEventListener ('click',
     function() {           // anonyme Funktion
 		btn = document.querySelector("#btn_visibility");
 		snippets = document.querySelector("#snippets");
-		if (btn.innerHTML == "Hide"){
+		if (btn.innerHTML == "Hide Settings"){
 			snippets.style.visibility="hidden";
-			btn.innerHTML = "None";
-		} else if(btn.innerHTML == "None"){
+			btn.innerHTML = "Show Settings";
+            snippets.style.display = "none";
+		/*} else if(btn.innerHTML == "None"){
 			snippets.style.display = "none";
-			btn.innerHTML = "Show";
+			btn.innerHTML = "Show";*/
 		} else{
-			btn.innerHTML = "Hide";
+			btn.innerHTML = "Hide Settings";
 			snippets.style.display = "grid";
 			snippets.style.visibility = "visible";
 		}

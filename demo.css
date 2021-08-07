@@ -110,7 +110,7 @@
 /* ID-Selektor*/
 	#navigation {
 		min-width: 9rem;
-		background: #FF9900;
+		background: #88939A;
 		/***** Sticky *****
 		position: sticky;
 		top: 0;
@@ -150,7 +150,7 @@
 /* Zwischenbereich */
 @media (min-width: 40rem) and (max-width: 60rem){
 	body {
-		background-color:#D79922;
+		background-color:#BAD3A7;
 		background-image:none;
 		display:grid;
 		grid-template-columns: 1fr 1fr;
@@ -165,10 +165,12 @@
 
 	/*border-box margin padding  beispiel*/
 	#main_content{
-		width: 20rem;
+		flex:3;
+		min-width: 20rem;
+		/*width: 20rem;
 		padding: 2rem;
 		border-color: #505050;
-		box-sizing: border-box;
+		box-sizing: border-box;*/
 	}
 
 	#navigation {
@@ -194,7 +196,10 @@
 /* Auch @media (min-device-width: 60rem) { */
 /* Einstellungen, die erst bei einer Anzeige mit einer Breite von mindestens 40 Zeichen der Schriftgröße wirken */
 @media (min-width: 60rem){
+
+	
 	body,html{
+		background-color:#BAD3A7;
 		max-width: 80rem;
 		min-width: 60rem;
 		margin: 0 auto;

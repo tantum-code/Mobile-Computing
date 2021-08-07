@@ -21,7 +21,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>
-			Responsive Websites - Techniken
+			Loci-Method-Go
 		</title>
 		<link id="css" rel="stylesheet" type="text/css" href="demo.css">
 		<link id="css" rel="stylesheet" type="text/css" href="snippets.css">
@@ -36,19 +36,20 @@
 	<body>
 		<header class="containers">
 			<h1>
-				Eine zweite Seite ist schnell erstellt
+				Loci-Method-Go
 			</h1>
 			<section id="header_section" class="header_section_flex">
 				<!-- Ein Element kann zu mehreren Klassen gehören -->
 				<nav id="navigation" class="header_bold containers">
 					<!-- Side navigation -->
 					<p> &lt;nav&gt; </p>
-					<a href="index.html">Responsive</a>
-					<a href="#">Schnipsel</a>
-					<a href="http://www.csszengarden.com/">Was kann CSS?</a>
+					<a href="index.html">Home</a>
+					<a href="#">Play</a>
+					<a href="tutorial.html">Tutorial</a>
 				</nav>
 				<!-- Ein Element kann zu mehreren Klassen gehören -->
-				<article id="header_article" class="header_bold containers">
+				
+				<!--<article id="header_article" class="header_bold containers">
 					<h3> Kaskade </h3>
 					<p>
 					Die bereits erstellte CSS-Datei kann weiter verwendet werden und sorgt
@@ -56,42 +57,44 @@
 					Seite vorgenommen werden, kann eine weitere CSS-Datei für diese Seite 
 					eingebunden werden. Auf Reihenfolge achten.
 					</p>
-				</article>
+				</article>-->
+
 			</section>
 		</header>
 		<main class="containers">
-			<h2> Sammlung nützlicher Javascript/HTML5 Schnipsel </h2>
+			<h2> Loci-Map </h2>
 			<div>
+				<button id="btn_visibility">Hide Settings</button>	
 				<section id="snippets">
+
 					<div class="section_item">
-						<h3> GPS </h3>
-						<div id="geoloc">
-							
-							<button onclick="getLocation()">Get location</button>
-							<p id="p_geoloc">Geolocation not available.</p>
-						</div>
-					</div>
-					<div>
+						<h3> Load a vocabulary .csv File </h3>
 						<input type= 'file'>
 					</div>
+
 					<div class="section_item">
-						<h3> GPS </h3>
+						<h3> Search-radius for the vocabs </h3>
 						<div id="geoloc">
-							<input type="text" placeholder="Type something..." id="myInput">
+							<input type="text" placeholder="Radius in meters..." id="myInput">
 							<!-- <button onclick="getAccel()">Get Accelerometer</button>
 							<p id="p_geoloc">Geolocation not available.</p> -->
 						</div>
 					</div>
-					<div id="map" class="section_item">
-						<!-- <video id="video" width="160" height="120" autoplay muted> -->
-					</div>
+
 					<div class="section_item">
-						<h3>Beschleunigung, Kompass</h3>
-						<p id="acc">No accelerometer found.</p>
-						<p id="mag">No magnetometer found.</p>
+						<h3> Place the vocabs </h3>
+						<div id="geoloc">
+							
+							<button onclick="getLocation()">Place</button>
+							<!--<p id="p_geoloc">Geolocation not available.</p>-->
+						</div>
 					</div>
-				</section>	
-				<button id="btn_visibility">Hide</button>				
+				</section>
+
+				<div id="map" class="section_item">
+			
+				</div>	
+			
 			</div>
 		</main>
 	</body>
