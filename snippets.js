@@ -257,7 +257,6 @@ var myId = 'abc';
 
 var markers = {
     'def': L.marker([51.441767, 5.470247]).addTo(map),
-    'ghi': L.marker([51.441767, 5.480247]).addTo(map),
     'jkl': L.marker([51.441767, 5.490247]).addTo(map)
 }
 
