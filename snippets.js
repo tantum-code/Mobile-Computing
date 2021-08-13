@@ -104,7 +104,16 @@ window.addEventListener("deviceorientation", function(event) {
 
 
 
+var greenIcon = L.icon({
+    iconUrl: 'loc.png',
+    //shadowUrl: 'leaf-shadow.png',
 
+    iconSize:     [30, 30], // size of the icon
+    //shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+    //shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
 
 
 
@@ -354,7 +363,10 @@ function onLocationFound(e) {
         map.removeLayer(markers[myId]);
     }
 
-    var pos = L.marker(e.latlng);
+    xCord = e.latlng[0];
+    yCord = e.latlng[1];
+
+    var pos = L.marker(e.latlng, {icon: greenIcon});
 
     pos.id = 'foo';
 
@@ -407,14 +419,6 @@ function queryFeatures(currentPos, numResults) {
                     // This is the player marker. Don't do anything here
                 } else {
                     
-                    //var ll = vocs.length;
-                    //var c = prompt("Reeeee " + distance +" ll: " +ll);
-                    
-                    //var randP = Math.floor( Math.random() * ll) ;
-
-                    //var modcount = 0;
-
-                    //var inti = 0;
 
                     /* selecting one of the vocabs from the CSV */
 
@@ -508,8 +512,10 @@ function processData(allText) {
 function getLocation() {
     if (navigator.geolocation) {
         //navigator.geolocation.getCurrentPosition(showPosition, showError);
-        navigator.geolocation.getCurrentPosition.watchPosition(showPosition, showError);
-        geolocation.setTracking(this.checked);
+        //navigator.geolocation.getCurrentPosition.watchPosition(showPosition, showError);
+        //geolocation.setTracking(this.checked);
+        //navigator.geolocation.getCurrentPosition.watchPosition(showPosition);
+        showPosition();
     } else { 
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
@@ -523,11 +529,10 @@ function getLocation() {
 
 /* Setup vocabs */
 
-function showPosition(position) {
-    xCord = position.coords.latitude;
-    yCord = position.coords.longitude;
+function showPosition() {
 
-    map.locate({setView: true, watch: true});
+    
+    //map.locate({setView: true, watch: true});
 
     processData(vocs);
 
@@ -550,8 +555,6 @@ function showPosition(position) {
             randomPoint(i);
         }
     }
-
-    
     
 }
 
@@ -560,7 +563,7 @@ if (navigator.geolocation) {
 
     map.on('locationfound', onLocationFound);
     //map.locate({setView: true, watch: true, maxZoom: 8});
-    map.locate({setView: true, watch: true, maxZoom: 8});
+    map.locate({setView: true, watch: true});
 
     //prompt("Ifff");
 

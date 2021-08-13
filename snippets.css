@@ -1,5 +1,6 @@
 #header_article {
 	min-width:12rem;
+	padding: 1rem;
 }
 
 #snippets{
@@ -32,6 +33,7 @@ main>div{
   font-size: 30px;
   text-align: center;
   padding: 1rem;
+  width: 95%;
 }
 
 button{
