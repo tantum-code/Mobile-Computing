@@ -365,7 +365,8 @@ function onLocationFound(e) {
     
     //var e = prompt("Ifff");
 
-    navigator.geolocation.getCurrentPosition(success, error);
+    //navigator.geolocation.getCurrentPosition(success, error);
+    navigator.geolocation.getCurrentPosition.watchPosition(success, error);
 
 
 }
@@ -506,7 +507,8 @@ function processData(allText) {
 
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        //navigator.geolocation.getCurrentPosition(showPosition, showError);
+        navigator.geolocation.getCurrentPosition.watchPosition(showPosition, showError);
         geolocation.setTracking(this.checked);
     } else { 
         x.innerHTML = "Geolocation is not supported by this browser.";
