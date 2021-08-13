@@ -377,7 +377,8 @@ function onLocationFound(e) {
     xCord = e.latlng.lat;
     yCord = e.latlng.lng;
 
-    var pos = L.marker(e.latlng, {icon: greenIcon});
+    //var pos = L.marker(e.latlng, {icon: greenIcon});
+    var pos = L.marker(e.latlng);
 
     pos.id = 'foo';
 
