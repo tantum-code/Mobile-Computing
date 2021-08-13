@@ -576,10 +576,10 @@ function showPosition() {
 if (navigator.geolocation) {
 
     map.on('locationfound', onLocationFound);
-    //map.locate({setView: true, watch: true, maxZoom: 8});
+    map.locate({setView: true, watch: true, maxZoom: 8});
 
     //map.locate({setView: true, watch: true});
-    map.locate({watch: true});
+    //map.locate({watch: true});
 
     //prompt("Ifff");
 

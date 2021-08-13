@@ -209,13 +209,13 @@
 
 /* Auch @media (min-device-width: 60rem) { */
 /* Einstellungen, die erst bei einer Anzeige mit einer Breite von mindestens 40 Zeichen der Schriftgröße wirken */
-@media (min-width: 60rem){
+@media (min-width: 10rem){
 
 	
 	body,html{
 		background-color:#BAD3A7;
 		max-width: 80rem;
-		min-width: 60rem;
+		min-width: 10rem;
 		margin: 0 auto;
 	}   
 
@@ -243,19 +243,19 @@
 	}
 
 	.button_div {
-		min-width: 35rem;
+		min-width: 10rem;
 		display: flex;
 		justify-content: space-between; /* flex-start, center, space-around*/
 	}
 
 	#navigation {
 		flex:1;
-		min-width: 9rem;
+		min-width: 1rem;
 	} 
 
 	#header_article {
 		flex:3;
-		min-width: 20rem;
+		min-width: 10rem;
 	}
 /************Ende Flex********************/
 
