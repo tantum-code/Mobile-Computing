@@ -52,7 +52,7 @@ button{
 	margin:auto;
 }
 
-@media (min-width: 60rem){
+@media (min-width: 10rem){
 	#snippets{
 		display:grid;
 		grid-template-columns: auto auto;
