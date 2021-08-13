@@ -19,6 +19,9 @@ var marker = null
 
 var te = 0
 
+var latlng =  [1, 1];
+
+
 //import * as turf from '@turf/turf'
 
 
@@ -286,6 +289,8 @@ var markers = {
 
 function randomPoint(num) {
 
+    prompt("Ifff");
+
     var radrere = document.getElementById("myInput").value;
 
     var searchradiusrere = (radrere/111111);
@@ -298,7 +303,13 @@ function randomPoint(num) {
     var x = xCord + r * Math.cos(theta);
     var y = yCord + r * Math.sin(theta);
 
-    var latlng = L.latLng(x, y);
+    //var latlng = L.latLng(x, y);
+
+
+    latlng[0] = x;
+    latlng[1] = y;
+
+    prompt("afff");
 
     markers['vo'+num] = L.marker(latlng).addTo(map);
 }
@@ -363,8 +374,8 @@ function onLocationFound(e) {
         map.removeLayer(markers[myId]);
     }
 
-    xCord = e.latlng[0];
-    yCord = e.latlng[1];
+    xCord = e.latlng.lat;
+    yCord = e.latlng.lng;
 
     var pos = L.marker(e.latlng, {icon: greenIcon});
 
@@ -533,6 +544,9 @@ function showPosition() {
 
     
     //map.locate({setView: true, watch: true});
+
+    /*xCord = position.coords.latitude;
+    yCord = position.coords.longitude;*/
 
     processData(vocs);
 
