@@ -99,11 +99,7 @@ button{
     /*font-size: 1.25em;
     font-weight: 700;*/
     color: black;
-    background-color: #f0f0f0;
+    background-color: #bfc4c8;
     display: inline-block;
 }
 
-.inputfile:focus + label,
-.inputfile + label:hover {
-    /*background-color: red;*/
-}

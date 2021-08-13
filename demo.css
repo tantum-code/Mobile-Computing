@@ -94,7 +94,7 @@
 		margin: .7rem;
 		padding: 2rem;
 		border: none;
-		background-color: #e7ebe5;
+		background-color: #eff5f4;
 		/*padding-right: 40px;*/
 	}
 
@@ -102,7 +102,7 @@
 		margin: .7rem;
 		padding: .5rem;
 		border: none;
-		background-color: #e7ebe5;
+		background-color: #eff5f4;
 		padding: 20px;
 	}
 
@@ -134,7 +134,7 @@
 	#anmerkung {
 		background-color: #e6f2f7;
 		border: 1px solid;	
-		border-color: #bbc5a7;
+		border-color: #ade4da;
 		margin: 1rem;
 		padding: 0.2rem;
 		width:30%;
@@ -142,7 +142,7 @@
 	}
 
 	#anmerkung h3 {
-		background-color: #bbc5a7;
+		background-color: #ade4da;
 		color: white;
 		margin: 0 0 0.5rem;
 	}
@@ -213,7 +213,7 @@
 
 	
 	body,html{
-		background-color:#BAD3A7;
+		background-color:#ade4da;
 		max-width: 80rem;
 		min-width: 40rem;
 		margin: 0 auto;
