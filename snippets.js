@@ -289,7 +289,7 @@ var markers = {
 
 function randomPoint(num) {
 
-    prompt("Ifff");
+    //prompt("Ifff");
 
     var radrere = document.getElementById("myInput").value;
 
@@ -309,7 +309,7 @@ function randomPoint(num) {
     latlng[0] = x;
     latlng[1] = y;
 
-    prompt("afff");
+    //prompt("afff");
 
     markers['vo'+num] = L.marker(latlng).addTo(map);
 }
@@ -334,11 +334,11 @@ function randomPoint(num) {
 
 
 
-function success(position) {
+function success() {
         
     //$body.addClass('loaded');
-    
-    var currentPos = [position.coords.latitude,position.coords.longitude];
+    //notsure
+    //var currentPos = [position.coords.latitude,position.coords.longitude];
     
     /*map.setView(currentPos, zoomLevel);
 
@@ -347,7 +347,10 @@ function success(position) {
                         .bindTooltip("you are here")
                         .openTooltip();*/
 
-    queryFeatures(currentPos, 5);
+
+                        
+    //queryFeatures(currentPos, 5);
+    queryFeatures();
 
 }
 
@@ -390,7 +393,11 @@ function onLocationFound(e) {
     //var e = prompt("Ifff");
 
     //navigator.geolocation.getCurrentPosition(success, error);
-    navigator.geolocation.getCurrentPosition.watchPosition(success, error);
+    
+
+    success();
+    //notsure
+    //navigator.geolocation.getCurrentPosition.watchPosition(success, error);
 
 
 }
@@ -407,7 +414,7 @@ var array;
 
 
 
-function queryFeatures(currentPos, numResults) {
+function queryFeatures() {
 
     // Each layer on the map will be checked
 
@@ -416,8 +423,15 @@ function queryFeatures(currentPos, numResults) {
 
             //find the distance from the GPS coords to the next marker using pythagoras
 
-            var diffX = Math.abs(currentPos[0] - layer.getLatLng().lat);
-            var diffY = Math.abs(currentPos[1] - layer.getLatLng().lng);
+            
+
+            var diffX = Math.abs(xCord - layer.getLatLng().lat);
+            var diffY = Math.abs(yCord - layer.getLatLng().lng);
+
+            /*var diffX = Math.abs(currentPos[0] - layer.getLatLng().lat);
+            var diffY = Math.abs(currentPos[1] - layer.getLatLng().lng);*/
+
+            //prompt("ngge");
 
             var diff = Math.sqrt((Math.pow(diffX,2)+Math.pow(diffY,2)))
 
