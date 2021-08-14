@@ -1,15 +1,4 @@
 
-
-
-
-//import * as papaparse from './papaparse.min.js';
-
-
-
-/****************** GPS **************************/
-
-
-
 let input = document.querySelector('input');
 let textarea = document.querySelector('textarea');
 
@@ -20,49 +9,6 @@ var marker = null
 var te = 0
 
 var latlng =  [1, 1];
-
-
-//import * as turf from '@turf/turf'
-
-
-
-function getAccel(){
-    DeviceMotionEvent.requestPermission().then(response => {
-        if (response == 'granted') {
-            console.log("accelerometer permission granted");
-            // Do stuff here
-            window.addEventListener('deviceorientation',(event) => {
-                // Expose each orientation angle in a more readable way
-            rotation_degrees = event.alpha;
-            frontToBack_degrees = event.beta;
-            leftToRight_degrees = event.gamma;
-                
-                // Update velocity according to how tilted the phone is
-                // Since phones are narrower than they are long, double the increase to the x velocity
-            vx = vx + leftToRight_degrees * updateRate*2; 
-            vy = vy + frontToBack_degrees * updateRate;
-                
-                // Update position and clip it to bounds
-            px = px + vx*.5;
-            if (px > 98 || px < 0){ 
-                px = Math.max(0, Math.min(98, px)) // Clip px between 0-98
-                vx = 0;
-            }
-
-            py = py + vy*.5;
-            if (py > 98 || py < 0){
-                py = Math.max(0, Math.min(98, py)) // Clip py between 0-98
-                vy = 0;
-            }
-                
-            dot = document.getElementsByClassName("indicatorDot")[0]
-            dot.setAttribute('style', "left:" + (px) + "%;" +
-                                          "top:" + (py) + "%;");
-            
-        });
-    }
-});
-}
 
 
 
@@ -83,34 +29,12 @@ function showError(error) {
             break;
     }
 }
-/******************************************************/
-/****************** Beschleunigungssensoren **************************/
-window.ondevicemotion = function(event) { 
-	var ax = event.accelerationIncludingGravity.x
-	var ay = event.accelerationIncludingGravity.y
-	var az = event.accelerationIncludingGravity.z
-
-	document.querySelector("#acc").innerHTML = "X = " + te + "<br>" + "Y = " + ay + "<br>" + "Z = " + az;
-}
-
-window.addEventListener("deviceorientation", function(event) {
-	document.querySelector("#mag").innerHTML = "alpha = " + event.alpha + "<br>" + "beta = " + event.beta + "<br>" + "gamma = " + event.gamma;
-}, true);
-/******************************************************/
-/****************** Kamera **************************/
-
-
-
-
-
-
 
 
 
 var greenIcon = L.icon({
     iconUrl: 'loc.png',
     //shadowUrl: 'leaf-shadow.png',
-
     iconSize:     [30, 30], // size of the icon
     //shadowSize:   [50, 64], // size of the shadow
     iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
@@ -122,31 +46,11 @@ var greenIcon = L.icon({
 
 
 
-
-
-
-
-
-
-
-
-
-//getLocation()
-
-// Init position auf der Map
-
 //48.585296339032574, 8.012315643345946
 var xCord = 48.585296;
 var yCord = 8.012315;
 
 var globalVocabCounter = 0;
-
-
-//var vocabs = fetch("https://github.com/tantum-code/Mobile-Computing/blob/main/hsk1.csv").then((r)=>{r.text().then((d)=>{let CONTENT = d})})
-
-//var data = $.csv.toArrays(vocabs);
-
-
 
 var vocs = '';
 
@@ -163,9 +67,6 @@ input.addEventListener('change', () => {
         const file = e.target.result;
         const lines = file.split(/\n|\n/);
         vocs = file;
-        //var vocs = file;
-        //textarea.value = lines.join('\n');
-
 
     };
 
@@ -173,39 +74,17 @@ input.addEventListener('change', () => {
 
     reader.readAsText(file);
 
-    //prompt("jaja")
-
-
-
 });
 
 
 
 
-//alert("uff");
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
 var rad = 200;
 
-//Radius für das spielfeld
+//radius of the gameboard
 var searchradius = (rad/111111);
 
-// Spielfeld Hinzufügen
+// gameboard
 var voccircle = L.circle([xCord, yCord], searchradius, {
     weight: 1,
     color: 'blue',
@@ -217,16 +96,6 @@ var voccircle = L.circle([xCord, yCord], searchradius, {
 
 function initPosition(e) {
     var radius = e.accuracy / 2;
-    
-    //L.viewreset();
-
-    /*if (markers.hasOwnProperty(myId)) {
-        map.removeLayer(markers[myId]);
-    }*/
-
-    
-    //markers[myId] = L.marker(e.latlng).addTo(map);
-    //L.circle(e.latlng, radius).addTo(map);
 
     var startcircle = L.circle([position.coords.latitude, position.coords.longitude], {
         color: "red",
@@ -235,24 +104,15 @@ function initPosition(e) {
         radius: searchradius
     }).addTo(map);        
 
-    // layersWithin(map, layers, latlng, radiusopt, nullable) → {Array.<object>}
-
     if (layersWithin(map,markers, e.latlng, 10) != null){
         te = 1;
     }
-
-
 }
 
 
 
 
-
-
-
-
 const map = L.map('map').setView([xCord, yCord], 15);
-//const titleUrl = 'https://{s}.title.openstreetmap.org/{z}/{x}/{y}.png';
 const titleUrl = 'https://api.maptiler.com/maps/outdoor/{z}/{x}/{y}.png?key=XsJynJkerBUUQwNO3Uqx'
 const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Coded by Thomas Koch';
 
@@ -275,27 +135,11 @@ var markers = {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 function randomPoint(num) {
-
-    //prompt("Ifff");
 
     var radrere = document.getElementById("myInput").value;
 
     var searchradiusrere = (radrere/111111);
-
-    
 
     var r = searchradiusrere * Math.sqrt(Math.random());
     var theta = Math.random() * 2 * Math.PI;
@@ -303,53 +147,15 @@ function randomPoint(num) {
     var x = xCord + r * Math.cos(theta);
     var y = yCord + r * Math.sin(theta);
 
-    //var latlng = L.latLng(x, y);
-
-
     latlng[0] = x;
     latlng[1] = y;
-
-    //prompt("afff");
 
     markers['vo'+num] = L.marker(latlng).addTo(map);
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function success() {
-        
-    //$body.addClass('loaded');
-    //notsure
-    //var currentPos = [position.coords.latitude,position.coords.longitude];
-    
-    /*map.setView(currentPos, zoomLevel);
 
-    var myLocation = L.marker(currentPos)
-                        .addTo(map)
-                        .bindTooltip("you are here")
-                        .openTooltip();*/
-
-
-                        
-    //queryFeatures(currentPos, 5);
     queryFeatures();
 
 }
@@ -359,19 +165,9 @@ function error() {
 }
  
 
-
-
-
-
-
-
-
-
-
 function onLocationFound(e) {
+
     var radius = e.accuracy / 2;
-    
-    //L.viewreset();
 
     if (markers.hasOwnProperty(myId)) {
         map.removeLayer(markers[myId]);
@@ -380,7 +176,6 @@ function onLocationFound(e) {
     xCord = e.latlng.lat;
     yCord = e.latlng.lng;
 
-    //var pos = L.marker(e.latlng, {icon: greenIcon});
     var pos = L.marker(e.latlng);
 
     pos.id = 'foo';
@@ -388,30 +183,12 @@ function onLocationFound(e) {
     markers[myId] = pos;
 
     pos.addTo(map);
-    
-    
-    //var e = prompt("Ifff");
-
-    //navigator.geolocation.getCurrentPosition(success, error);
-    
 
     success();
-    //notsure
-    //navigator.geolocation.getCurrentPosition.watchPosition(success, error);
-
-
 }
 
 
-
-
-
-
 var array;
-
-
-
-
 
 
 function queryFeatures() {
@@ -421,17 +198,8 @@ function queryFeatures() {
     map.eachLayer(function(layer) {
         if (layer instanceof L.Marker) {
 
-            //find the distance from the GPS coords to the next marker using pythagoras
-
-            
-
             var diffX = Math.abs(xCord - layer.getLatLng().lat);
             var diffY = Math.abs(yCord - layer.getLatLng().lng);
-
-            /*var diffX = Math.abs(currentPos[0] - layer.getLatLng().lat);
-            var diffY = Math.abs(currentPos[1] - layer.getLatLng().lng);*/
-
-            //prompt("ngge");
 
             var diff = Math.sqrt((Math.pow(diffX,2)+Math.pow(diffY,2)))
 
@@ -517,7 +285,6 @@ var entries = '';
 function processData(allText) {
     var record_num = 3;  // or however many elements there are in each row
     var allTextLines = allText.split(/\r\n|\n/);
-    //var entries = allTextLines[0].split(',');
 
     entries = allTextLines[0].split(',');
     var lines = [];
@@ -530,17 +297,12 @@ function processData(allText) {
         }
         lines.push(tarr);
     }
-    //alert("yeeee");
 }
 
     
 
 function getLocation() {
     if (navigator.geolocation) {
-        //navigator.geolocation.getCurrentPosition(showPosition, showError);
-        //navigator.geolocation.getCurrentPosition.watchPosition(showPosition, showError);
-        //geolocation.setTracking(this.checked);
-        //navigator.geolocation.getCurrentPosition.watchPosition(showPosition);
         showPosition();
     } else { 
         x.innerHTML = "Geolocation is not supported by this browser.";
@@ -557,23 +319,13 @@ function getLocation() {
 
 function showPosition() {
 
-    
-    //map.locate({setView: true, watch: true});
-
-    /*xCord = position.coords.latitude;
-    yCord = position.coords.longitude;*/
-
     processData(vocs);
-
-    //prompt(vocs[5]);
 
     var amountVocs = 0;
     
     amountVocs = prompt("How many Vocabs do you want to chase?");
 
     globalVocabCounter = globalVocabCounter + amountVocs;
-
-
 
     var inputField = document.getElementById("myInput").value;
 
@@ -593,43 +345,25 @@ if (navigator.geolocation) {
     map.on('locationfound', onLocationFound);
     map.locate({setView: true, watch: true, maxZoom: 16});
 
-    //map.locate({setView: true, watch: true});
-    //map.locate({watch: true});
-
-    //prompt("Ifff");
-
-
-
 } else { 
     x.innerHTML = "Geolocation is not supported by this browser.";
 }
 
 
 map.on('locationfound', onLocationFound);
-//map.locate({setView: true, watch: true, maxZoom: 8});
-//map.locate({setView: true, watch: true});
 
 
 
 
-
-
-
-/******************************************************/
-/***************** Toggle Visibility, Display None, Display Block ***********/
 var togglevisibility = document.querySelector('#btn_visibility');
-/* Klick Event Listener hinzufügen */
 togglevisibility.addEventListener ('click',
-    function() {           // anonyme Funktion
+    function() {           
 		btn = document.querySelector("#btn_visibility");
 		snippets = document.querySelector("#snippets");
 		if (btn.innerHTML == "Hide Settings"){
 			snippets.style.visibility="hidden";
 			btn.innerHTML = "Show Settings";
             snippets.style.display = "none";
-		/*} else if(btn.innerHTML == "None"){
-			snippets.style.display = "none";
-			btn.innerHTML = "Show";*/
 		} else{
 			btn.innerHTML = "Hide Settings";
 			snippets.style.display = "grid";
@@ -637,4 +371,3 @@ togglevisibility.addEventListener ('click',
 		}
     }, 
     true);
-/****************************************************************************/	
